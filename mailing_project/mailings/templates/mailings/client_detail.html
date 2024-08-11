@@ -1,0 +1,21 @@
+{% extends "mailings/base.html" %}
+
+{% block title %}Детали клиента{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Детали клиента</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Ф.И.О.</dt>
+        <dd class="col-sm-9">{{ client.full_name }}</dd>
+
+        <dt class="col-sm-3">Контактный email</dt>
+        <dd class="col-sm-9">{{ client.email }}</dd>
+
+        <dt class="col-sm-3">Комментарий</dt>
+        <dd class="col-sm-9">{{ client.comment }}</dd>
+    </dl>
+    <a href="{% url 'client_update' client.pk %}" class="btn btn-warning">Редактировать</a>
+    <a href="{% url 'client_list' %}" class="btn btn-secondary">Назад к списку</a>
+</div>
+{% endblock %}

@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Confirm Deletion</title>
-</head>
-<body>
-    <h1>Are you sure you want to delete the mailing "{{ mailing.title }}"?</h1>
-    <p>This action cannot be undone.</p>
+{% extends "mailings/base.html" %}
 
+{% block title %}Подтверждение удаления рассылки{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Подтверждение удаления рассылки</h2>
+    <p>Вы уверены, что хотите удалить рассылку "{{ mailing.title }}"?</p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Yes, delete</button>
-        <a href="{% url 'mailing_detail' mailing.pk %}">Cancel</a>
+        <button type="submit" class="btn btn-danger">Удалить</button>
+        <a href="{% url 'mailing_detail' mailing.pk %}" class="btn btn-secondary">Отмена</a>
     </form>
-</body>
-</html>
+</div>
+{% endblock %}

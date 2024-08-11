@@ -1,17 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ mailing.title }}</title>
-</head>
-<body>
-    <h1>{{ mailing.title }}</h1>
-    <p><strong>Message:</strong> {{ mailing.message }}</p>
-    <p><strong>Send Time:</strong> {{ mailing.send_time }}</p>
-    <p><strong>Status:</strong> {{ mailing.get_status_display }}</p>
-    <p><strong>Recipients:</strong> {{ mailing.recipients }}</p>
+{% extends "mailings/base.html" %}
 
-    <a href="{% url 'mailing_edit' mailing.pk %}">Edit</a> |
-    <a href="{% url 'mailing_delete' mailing.pk %}">Delete</a> |
-    <a href="{% url 'mailing_list' %}">Back to list</a>
-</body>
-</html>
+{% block title %}Детали рассылки{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Детали рассылки</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Название</dt>
+        <dd class="col-sm-9">{{ mailing.title }}</dd>
+
+        <dt class="col-sm-3">Дата и время первой отправки</dt>
+        <dd class="col-sm-9">{{ mailing.send_time }}</dd>
+
+        <dt class="col-sm-3">Периодичность</dt>
+        <dd class="col-sm-9">
+            {% if mailing.frequency == 'daily' %}Раз в день{% elif mailing.frequency == 'weekly' %}Раз в неделю{% elif mailing.frequency == 'monthly' %}Раз в месяц{% endif %}
+        </dd>
+
+        <dt class="col-sm-3">Статус</dt>
+        <dd class="col-sm-9">{{ mailing.get_status_display }}</dd>
+
+        <dt class="col-sm-3">Сообщение</dt>
+        <dd class="col-sm-9">{{ mailing.message.subject }}</dd>
+
+        <dt class="col-sm-3">Клиенты</dt>
+        <dd class="col-sm-9">
+            <ul>
+                {% for client in mailing.clients.all %}
+                    <li>{{ client.full_name }} ({{ client.email }})</li>
+                {% empty %}
+                    <li>Нет клиентов для этой рассылки.</li>
+                {% endfor %}
+            </ul>
+        </dd>
+    </dl>
+    <a href="{% url 'mailing_update' mailing.pk %}" class="btn btn-warning">Редактировать</a>
+    <a href="{% url 'mailing_list' %}" class="btn btn-secondary">Назад к списку</a>
+</div>
+{% endblock %}
