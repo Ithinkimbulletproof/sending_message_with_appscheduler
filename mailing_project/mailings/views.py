@@ -1,49 +1,101 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Mailing
-from .forms import MailingForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Client, Message, Mailing, MailingAttempt
+from .forms import ClientForm, MessageForm, MailingForm, MailingAttemptForm
 
 
-def mailing_list(request):
-    mailings = Mailing.objects.all()
-    return render(request, "mailings/mailing_list.html",
-                  {"mailings": mailings})
+class ClientListView(ListView):
+    model = Client
+    template_name = 'mailings/client_list.html'
+
+class ClientDetailView(DetailView):
+    model = Client
+    template_name = 'mailings/client_detail.html'
+
+class ClientCreateView(CreateView):
+    model = Client
+    form_class = ClientForm
+    template_name = 'mailings/client_form.html'
+
+class ClientUpdateView(UpdateView):
+    model = Client
+    form_class = ClientForm
+    template_name = 'mailings/client_form.html'
+
+class ClientDeleteView(DeleteView):
+    model = Client
+    template_name = 'mailings/client_confirm_delete.html'
+    success_url = reverse_lazy('client_list')
 
 
-def mailing_detail(request, pk):
-    mailing = get_object_or_404(Mailing, pk=pk)
-    return render(request, "mailings/mailing_detail.html",
-                  {"mailing": mailing})
+class MessageListView(ListView):
+    model = Message
+    template_name = 'mailings/message_list.html'
+
+class MessageDetailView(DetailView):
+    model = Message
+    template_name = 'mailings/message_detail.html'
+
+class MessageCreateView(CreateView):
+    model = Message
+    form_class = MessageForm
+    template_name = 'mailings/message_form.html'
+
+class MessageUpdateView(UpdateView):
+    model = Message
+    form_class = MessageForm
+    template_name = 'mailings/message_form.html'
+
+class MessageDeleteView(DeleteView):
+    model = Message
+    template_name = 'mailings/message_confirm_delete.html'
+    success_url = reverse_lazy('message_list')
 
 
-def mailing_create(request):
-    if request.method == "POST":
-        form = MailingForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("mailing_list")
-    else:
-        form = MailingForm()
-    return render(request, "mailings/mailing_form.html",
-                  {"form": form})
+class MailingListView(ListView):
+    model = Mailing
+    template_name = 'mailings/mailing_list.html'
+
+class MailingDetailView(DetailView):
+    model = Mailing
+    template_name = 'mailings/mailing_detail.html'
+
+class MailingCreateView(CreateView):
+    model = Mailing
+    form_class = MailingForm
+    template_name = 'mailings/mailing_form.html'
+
+class MailingUpdateView(UpdateView):
+    model = Mailing
+    form_class = MailingForm
+    template_name = 'mailings/mailing_form.html'
+
+class MailingDeleteView(DeleteView):
+    model = Mailing
+    template_name = 'mailings/mailing_confirm_delete.html'
+    success_url = reverse_lazy('mailing_list')
 
 
-def mailing_edit(request, pk):
-    mailing = get_object_or_404(Mailing, pk=pk)
-    if request.method == "POST":
-        form = MailingForm(request.POST, instance=mailing)
-        if form.is_valid():
-            form.save()
-            return redirect("mailing_list")
-    else:
-        form = MailingForm(instance=mailing)
-    return render(request, "mailings/mailing_form.html",
-                  {"form": form})
+class MailingAttemptListView(ListView):
+    model = MailingAttempt
+    template_name = 'mailings/mailingattempt_list.html'
 
+class MailingAttemptDetailView(DetailView):
+    model = MailingAttempt
+    template_name = 'mailings/mailingattempt_detail.html'
 
-def mailing_delete(request, pk):
-    mailing = get_object_or_404(Mailing, pk=pk)
-    if request.method == "POST":
-        mailing.delete()
-        return redirect("mailing_list")
-    return render(request, "mailings/mailing_confirm_delete.html",
-                  {"mailing": mailing})
+class MailingAttemptCreateView(CreateView):
+    model = MailingAttempt
+    form_class = MailingAttemptForm
+    template_name = 'mailings/mailingattempt_form.html'
+
+class MailingAttemptUpdateView(UpdateView):
+    model = MailingAttempt
+    form_class = MailingAttemptForm
+    template_name = 'mailings/mailingattempt_form.html'
+
+class MailingAttemptDeleteView(DeleteView):
+    model = MailingAttempt
+    template_name = 'mailings/mailingattempt_confirm_delete.html'
+    success_url = reverse_lazy('mailingattempt_list')
