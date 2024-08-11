@@ -22,14 +22,22 @@ class Message(models.Model):
 
 class Mailing(models.Model):
     PERIODICITY_CHOICES = [
-        ('daily', 'Раз в день'),
-        ('weekly', 'Раз в неделю'),
-        ('monthly', 'Раз в месяц'),
+        ("daily", "Раз в день"),
+        ("weekly", "Раз в неделю"),
+        ("monthly", "Раз в месяц"),
     ]
 
     first_send_date = models.DateTimeField(default=timezone.now)
     periodicity = models.CharField(max_length=10, choices=PERIODICITY_CHOICES)
-    status = models.CharField(max_length=20, choices=[('created', 'Создана'), ('started', 'Запущена'), ('completed', 'Завершена')], default='created')
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ("created", "Создана"),
+            ("started", "Запущена"),
+            ("completed", "Завершена"),
+        ],
+        default="created",
+    )
     message = models.OneToOneField(Message, on_delete=models.CASCADE)
     clients = models.ManyToManyField(Client)
 
@@ -39,8 +47,8 @@ class Mailing(models.Model):
 
 class MailingAttempt(models.Model):
     STATUS_CHOICES = [
-        ('success', 'Успешно'),
-        ('failure', 'Неуспешно'),
+        ("success", "Успешно"),
+        ("failure", "Неуспешно"),
     ]
 
     mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE)
