@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ mailing.title }}</title>
+</head>
+<body>
+    <h1>{{ mailing.title }}</h1>
+    <p><strong>Message:</strong> {{ mailing.message }}</p>
+    <p><strong>Send Time:</strong> {{ mailing.send_time }}</p>
+    <p><strong>Status:</strong> {{ mailing.get_status_display }}</p>
+    <p><strong>Recipients:</strong> {{ mailing.recipients }}</p>
+
+    <a href="{% url 'mailing_edit' mailing.pk %}">Edit</a> |
+    <a href="{% url 'mailing_delete' mailing.pk %}">Delete</a> |
+    <a href="{% url 'mailing_list' %}">Back to list</a>
+</body>
+</html>
