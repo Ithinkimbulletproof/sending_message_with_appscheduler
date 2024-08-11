@@ -1,0 +1,30 @@
+{% extends "mailings/base.html" %}
+
+{% block title %}{{ form.instance.pk|default:"Создание новой попытки рассылки" }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ form.instance.pk|default:"Создание новой попытки рассылки" }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_attempt_time" class="form-label">Дата и время попытки</label>
+            {{ form.attempt_time|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            <label for="id_status" class="form-label">Статус попытки</label>
+            {{ form.status|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            <label for="id_server_response" class="form-label">Ответ почтового сервера</label>
+            {{ form.server_response|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            <label for="id_mailing" class="form-label">Рассылка</label>
+            {{ form.mailing|add_class:"form-control" }}
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a href="{% url 'mailingattempt_list' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}
