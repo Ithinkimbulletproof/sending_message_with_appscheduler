@@ -5,12 +5,14 @@ from .forms import MailingForm
 
 def mailing_list(request):
     mailings = Mailing.objects.all()
-    return render(request, "mailings/mailing_list.html", {"mailings": mailings})
+    return render(request, "mailings/mailing_list.html",
+                  {"mailings": mailings})
 
 
 def mailing_detail(request, pk):
     mailing = get_object_or_404(Mailing, pk=pk)
-    return render(request, "mailings/mailing_detail.html", {"mailing": mailing})
+    return render(request, "mailings/mailing_detail.html",
+                  {"mailing": mailing})
 
 
 def mailing_create(request):
@@ -21,7 +23,8 @@ def mailing_create(request):
             return redirect("mailing_list")
     else:
         form = MailingForm()
-    return render(request, "mailings/mailing_form.html", {"form": form})
+    return render(request, "mailings/mailing_form.html",
+                  {"form": form})
 
 
 def mailing_edit(request, pk):
@@ -33,7 +36,8 @@ def mailing_edit(request, pk):
             return redirect("mailing_list")
     else:
         form = MailingForm(instance=mailing)
-    return render(request, "mailings/mailing_form.html", {"form": form})
+    return render(request, "mailings/mailing_form.html",
+                  {"form": form})
 
 
 def mailing_delete(request, pk):
@@ -41,4 +45,5 @@ def mailing_delete(request, pk):
     if request.method == "POST":
         mailing.delete()
         return redirect("mailing_list")
-    return render(request, "mailings/mailing_confirm_delete.html", {"mailing": mailing})
+    return render(request, "mailings/mailing_confirm_delete.html",
+                  {"mailing": mailing})

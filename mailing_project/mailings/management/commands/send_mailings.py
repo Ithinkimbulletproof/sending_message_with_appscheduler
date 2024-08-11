@@ -1,5 +1,3 @@
-# mailings/management/commands/send_mailings.py
-
 from django.core.management.base import BaseCommand
 from django.core.mail import send_mail
 from mailings.models import Mailing
