@@ -1,9 +1,13 @@
 from pathlib import Path
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-*a074yko_+gg4oaf&f=w$$+0(ak75!0cvro8s9nc4$0#1%ien!"
+SECRET_KEY = env("django-insecure-*a074yko_+gg4oaf&f=w$$+0(ak75!0cvro8s9nc4$0#1%ien!")
 
 DEBUG = True
 
@@ -11,6 +15,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "users",
+    "blog",
     "mailings",
     "django_apscheduler",
     "django.contrib.admin",
@@ -54,8 +59,8 @@ WSGI_APPLICATION = "mailing_project.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "course6",
+        "ENGINE": env("DATABASE_ENGINE", default="django.db.backends.sqlite3"),
+        "NAME": env("DATABASE_NAME", default=os.path.join(BASE_DIR, "course6.db")),
     }
 }
 
@@ -103,3 +108,10 @@ APSCHEDULER = {
 }
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+    }
+}
