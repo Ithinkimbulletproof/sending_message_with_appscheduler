@@ -5,7 +5,7 @@ from .models import Client, Message, Mailing, MailingAttempt
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
-        fields = ["email", "full_name", "comment"]
+        fields = ["email", "full_name", "comment", "phone_number"]
 
 
 class MessageForm(forms.ModelForm):

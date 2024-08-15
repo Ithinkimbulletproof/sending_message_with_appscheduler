@@ -15,6 +15,11 @@ class ClientListView(ListView):
     model = Client
     template_name = "mailings/client_list.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["additional_info"] = "Some additional information"
+        return context
+
 
 class ClientDetailView(DetailView):
     model = Client

@@ -7,6 +7,7 @@ class Client(models.Model):
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=255)
     comment = models.TextField(blank=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
         return self.full_name
@@ -38,6 +39,7 @@ class Mailing(models.Model):
         ],
         default="created",
     )
+    is_active = models.BooleanField(default=True)
     message = models.OneToOneField(Message, on_delete=models.CASCADE)
     clients = models.ManyToManyField(Client)
 
