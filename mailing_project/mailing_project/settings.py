@@ -1,10 +1,10 @@
 from pathlib import Path
-import environ
 import os
+from dotenv import load_dotenv
 
-env = environ.Env()
-environ.Env.read_env()
-
+BASE_DIR = Path(__file__).resolve().parent.parent
+dot_env = os.path.join(BASE_DIR, '.env')
+load_dotenv(dotenv_path=dot_env)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -60,8 +60,12 @@ WSGI_APPLICATION = "mailing_project.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": env("DATABASE_ENGINE", default="django.db.backends.sqlite3"),
-        "NAME": env("DATABASE_NAME", default=os.path.join(BASE_DIR, "course6.db")),
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.getenv('POSTGRES_DB'),
+        "USER": os.getenv('POSTGRES_USER'),
+        "PASSWORD": os.getenv('POSTGRES_PASSWORD'),
+        "HOST": os.getenv('POSTGRES_HOST'),
+        "PORT": os.getenv('POSTGRES_PORT'),
     }
 }
 
@@ -112,7 +116,7 @@ AUTH_USER_MODEL = "users.CustomUser"
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": os.path.join(BASE_DIR, "cache"),
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": os.getenv('REDIS_URL'),
     }
 }
