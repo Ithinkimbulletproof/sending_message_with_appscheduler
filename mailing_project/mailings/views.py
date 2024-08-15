@@ -126,3 +126,7 @@ class MailingAttemptDeleteView(DeleteView):
     model = MailingAttempt
     template_name = "mailings/mailingattempt_confirm_delete.html"
     success_url = reverse_lazy("mailingattempt_list")
+
+class HomeListView(ListView):
+    model = Mailing
+    template_name = "mailings/home.html"
