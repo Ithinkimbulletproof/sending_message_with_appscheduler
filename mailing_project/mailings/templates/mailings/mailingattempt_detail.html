@@ -22,7 +22,7 @@
             <a href="{% url 'mailing_detail' mailing_attempt.mailing.pk %}">{{ mailing_attempt.mailing.title }}</a>
         </dd>
     </dl>
-    <a href="{% url 'mailingattempt_update' mailing_attempt.pk %}" class="btn btn-warning">Редактировать</a>
-    <a href="{% url 'mailingattempt_list' %}" class="btn btn-secondary">Назад к списку</a>
+    <a href="{% url 'mailings:mailingattempt_update' mailing_attempt.pk %}" class="btn btn-warning">Редактировать</a>
+    <a href="{% url 'mailings:mailingattempt_list' %}" class="btn btn-secondary">Назад к списку</a>
 </div>
 {% endblock %}

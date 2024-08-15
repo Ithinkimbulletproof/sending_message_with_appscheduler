@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Клиенты</h5>
                     <p class="card-text">Управляйте списком клиентов, добавляйте, редактируйте и удаляйте информацию о клиентах.</p>
-                    <a href="{% url 'client_list' %}" class="btn btn-primary">Перейти к клиентам</a>
+                    <a href="{% url 'mailings:client_list' %}" class="btn btn-primary">Перейти к клиентам</a>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Сообщения</h5>
                     <p class="card-text">Создавайте и редактируйте сообщения для рассылок.</p>
-                    <a href="{% url 'message_list' %}" class="btn btn-primary">Перейти к сообщениям</a>
+                    <a href="{% url 'mailings:message_list' %}" class="btn btn-primary">Перейти к сообщениям</a>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Рассылки</h5>
                     <p class="card-text">Создавайте и управляйте рассылками для выбранных клиентов.</p>
-                    <a href="{% url 'mailing_list' %}" class="btn btn-primary">Перейти к рассылкам</a>
+                    <a href="{% url 'mailings:mailing_list' %}" class="btn btn-primary">Перейти к рассылкам</a>
                 </div>
             </div>
         </div>

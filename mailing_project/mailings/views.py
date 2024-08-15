@@ -30,6 +30,13 @@ class ClientCreateView(CreateView):
     model = Client
     form_class = ClientForm
     template_name = "mailings/client_form.html"
+    success_url = reverse_lazy('mailings:client_list')
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.save(commit=False)
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class ClientUpdateView(UpdateView):
@@ -41,7 +48,7 @@ class ClientUpdateView(UpdateView):
 class ClientDeleteView(DeleteView):
     model = Client
     template_name = "mailings/client_confirm_delete.html"
-    success_url = reverse_lazy("client_list")
+    success_url = reverse_lazy("mailings:client_list")
 
 
 class MessageListView(ListView):

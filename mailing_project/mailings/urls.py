@@ -23,10 +23,13 @@ from .views import (
     HomeListView
 )
 
+app_name = 'mailings'
+
 urlpatterns = [
-    path("clients/", ClientListView.as_view(), name="client_list"),
+    path('clients/', ClientListView.as_view(), name='client_list'),
+    path('clients/create/', ClientCreateView.as_view(),
+         name='client_create'),
     path("clients/<int:pk>/", ClientDetailView.as_view(), name="client_detail"),
-    path("clients/create/", ClientCreateView.as_view(), name="client_create"),
     path("clients/update/<int:pk>/", ClientUpdateView.as_view(), name="client_update"),
     path("clients/delete/<int:pk>/", ClientDeleteView.as_view(), name="client_delete"),
     path("messages/", MessageListView.as_view(), name="message_list"),

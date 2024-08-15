@@ -1,6 +1,28 @@
 from django.db import models
 from django.utils import timezone
 from django.core.mail import send_mail
+from django.urls import reverse
+
+CREATE = "Создана"
+IN_WORK = "В работе"
+DONE = "Завершена"
+ERROR = "Ошибка отправки"
+
+DAILY = "раз в день"
+WEEKLY = "раз в неделю"
+MONTHLY = "раз в месяц"
+
+FREQUENCY_CHOICES = [
+    (DAILY, "Ежедневно"),
+    (WEEKLY, "Еженедельно"),
+    (MONTHLY, "Ежемесячно"),
+]
+STATUS_OF_NEWSLETTER = [
+    (CREATE, "Создана"),
+    (IN_WORK, "В работе"),
+    (DONE, "Завершена"),
+    (ERROR, "Ошибка отправки"),
+]
 
 
 class Client(models.Model):
@@ -11,6 +33,9 @@ class Client(models.Model):
 
     def __str__(self):
         return self.full_name
+
+    def get_absolute_url(self):
+        return reverse('mailings:client_detail', kwargs={'pk': self.pk})
 
 
 class Message(models.Model):
